@@ -3,13 +3,13 @@ const { getRecipeById, getAllRecipes, searchRecipeByName } = require("../control
 
     const getRecipeHandler = async (req, res) => {
         const { id } = req.params;
-        const source = isNaN(id) ? "api" : "bdd";
+        const source = isNaN(id) ? "bdd" : "api";
     
         try {
             const recipe = await getRecipeById(id, source);
             res.status(200).json(recipe)
         } catch (error) {
-            res.status(400).json({ error: error.message })
+            res.status(400).json({ message:"No se encuentra la receta buscada" })
         }
     
     };
