@@ -8,32 +8,32 @@ const {
 const cleanArray = (elem) => {
     let elementFilter = {};
     if (elem.length) {
-      elementFilter= elem.map((e) => ({
-        id: e.id,
-        name: e.title,
-        image: e.image,
-        summary: e.summary,
-        healthy: e.healthScore,
-        steps: e.analyzedInstructions[0].steps[0].step,
-      }));
+        elementFilter = elem.map((e) => ({
+            id: e.id,
+            name: e.title,
+            image: e.image,
+            summary: e.summary,
+            healthy: e.healthScore,
+            steps: e.analyzedInstructions[0].steps[0].step,
+        }));
     } else {
-      elementFilter= {
-        id: elem.id,
-        name: elem.title,
-        image: elem.image,
-        summary: elem.summary,
-        healthy: elem.healthScore,
-        steps: elem.analyzedInstructions[0].steps[0].step,
-      };
+        elementFilter = {
+            id: elem.id,
+            name: elem.title,
+            image: elem.image,
+            summary: elem.summary,
+            healthy: elem.healthScore,
+            steps: elem.analyzedInstructions[0].steps[0].step,
+        };
     }
     return elementFilter;
-  };
-  
+};
+
 const getRecipeById = async (id, source) => {
     const recipes = source === "api" ?
         (await axios.get(`https://api.spoonacular.com/recipes/${id}/information?apiKey=${API_KEY}`)).data
         : await Recipe.findByPk(id);
-    
+
     return cleanArray(recipes);
 };
 
@@ -59,6 +59,13 @@ const getAllRecipes = async () => {
     return [...databaseRecipes, ...apiRecipes];
 };
 
+const createRecipe = async (id, name, image, summary, healthy, steps) => {
+    if (id && name && image && summary && healthy && steps) {
+
+     await Recipe.create({ id, name, image, summary, healthy, steps});
+    };
+}
 
 
-module.exports = { getRecipeById, searchRecipeByName, getAllRecipes }; 
+
+module.exports = { getRecipeById, searchRecipeByName, getAllRecipes, createRecipe }; 

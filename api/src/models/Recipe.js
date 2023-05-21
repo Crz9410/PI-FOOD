@@ -9,7 +9,8 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER,
       // toDefaultValue: DataTypes.UUIDV4,
       allowNull: false,
-      primaryKey: true
+      primaryKey: true,
+      
     },
     name: {
       type: DataTypes.STRING,
@@ -26,7 +27,7 @@ module.exports = (sequelize) => {
     },
     // nivel de comida saludable
     healthy: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     // paso a paso
