@@ -1,4 +1,4 @@
-const { getRecipeById } = require("../controllers/recipeControllers");
+const { getRecipeById, getAllRecipes, searchRecipeByName } = require("../controllers/recipeControllers");
 
 
     const getRecipeHandler = async (req, res) => {
@@ -14,13 +14,29 @@ const { getRecipeById } = require("../controllers/recipeControllers");
     
     };
     
-
+    const getRecipesHandler = async (req, res) => {
+        
+        try {
+            const { name } = req.query;
+            // Obtener el nombre del país de los parámetros de la URL 
+            // Hacer una petición GET al endpoint con el nombre del país
+            const response = name?await searchRecipeByName(name):await getAllRecipes();
+           
+            // Devolver la respuesta en formato JSON
+            res.json(response);
+        } catch (error) {
+            // Manejar el error si la petición falla
+            res.status(400).json({message:"No se encuentra la receta buscado"})
+            
+          }
+       
+    };
 
 
 
 
 module.exports ={
-    getRecipeHandler,
+    getRecipeHandler, getRecipesHandler,
     
     
 };

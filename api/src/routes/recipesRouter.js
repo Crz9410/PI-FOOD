@@ -2,16 +2,18 @@ const { Router } = require("express");
 
 const { 
     getRecipeHandler,
+    getRecipesHandler
 } = require("../handlers/recipesHandler");
-// const { getAllCountries } = require("../controllers/countriesController");
+
 
 const recipesRouter = Router();
 
-// recipesRouter.get("/",getAllCountries );
+recipesRouter.get("/",getRecipesHandler);
 
-// countriesRouter.get("/", getCountriesHandler);
-
+recipesRouter.get("/search", getRecipesHandler);
 recipesRouter.get("/:id", getRecipeHandler);
+
+
 
 
 module.exports = recipesRouter;
