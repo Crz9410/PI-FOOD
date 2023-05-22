@@ -1,7 +1,9 @@
 import NavBar from './components/NavBar/NavBar';
-import {Landing, Home, Detail, Form} from './views';
+import Detail from './Pages/Detail/Detail';
 import { Route, useLocation } from 'react-router-dom';
-
+import Home from './Pages/Home/Home';
+import Landing from './Pages/Landing/Landing';
+import Form from './Pages/Form/Form';
 function App() {
   const location = useLocation();
 

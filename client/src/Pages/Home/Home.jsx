@@ -1,4 +1,4 @@
-import CardsContainer from "../../components/CardsContainer/CardsContainer";
+import CardsContainer from "../../components/CardsContainer/Cards";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { filterCountriesByStatus, getCountries, filterCreated, orderByName, FILTER_BY_STATUS } from "../../redux/actions";
