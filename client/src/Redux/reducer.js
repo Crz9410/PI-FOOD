@@ -6,7 +6,7 @@ const initialState = {
     allRecipes: []
 };
 function rootReducer(state = initialState, action) {
-    console.log("HHHHHHHHHHHH", action.type)
+    
     switch (action.type) {
         case GET_RECIPES:
             return {
@@ -62,7 +62,7 @@ function rootReducer(state = initialState, action) {
                 recipes: sortedArr
             }
         default:
-            console.log("DDDDDDDDDDDDDD")
+            
             return state;
     }
 }

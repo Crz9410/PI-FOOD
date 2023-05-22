@@ -13,7 +13,7 @@ const CardsContainer = ({ currentRecipes }) => {
             {currentRecipes.map(recipe => {
 
                 return (
-                    <div className={Style.card} key={recipe.cca3}>
+                    <div className={Style.card} key={recipe.id}>
                         <Card
 
                             id={recipe.id}

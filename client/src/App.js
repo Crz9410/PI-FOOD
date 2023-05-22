@@ -1,5 +1,5 @@
 import NavBar from './components/NavBar/NavBar';
-import Detail from './Pages/Detail/Detail';
+import Detail from './components/Detail/Detail';
 import { Route, useLocation } from 'react-router-dom';
 import Home from './Pages/Home/Home';
 import Landing from './Pages/Landing/Landing';

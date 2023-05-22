@@ -11,15 +11,15 @@ const Home = () => {
 
 
     const dispatch = useDispatch();
-const allRecipes = useSelector((state) => state?.recipes);
+    const allRecipes = useSelector((state) => state?.recipes);
     const [orden, setOrden] = useState('');
     const [currentPage, setCurrentPage] = useState(1);  //guarda en estado local la pagina actual, set es una constante que setea la pagina actual, empieza en 1 por que siempre se va setear en la pagina principal.
     const [countriesPerPage, setCountriesPerPage] = useState(10) // en el estado local guardarme cuantos paises quiero por pagina.
     const indexOfLastCountries = currentPage * countriesPerPage
     const indexOfFirstCountries = indexOfLastCountries - countriesPerPage
-     const currentRecipes = allRecipes;
-    //  const currentcountries = allRecipes.slice(indexOfFirstCountries, indexOfLastCountries);
-    
+    //const currentRecipes = allRecipes;
+    const currentRecipes = allRecipes.slice(indexOfFirstCountries, indexOfLastCountries);
+    console.log("FFFFfFFFFF", currentRecipes )
 
     const handlerSort = (e) => {
         e.preventDefault()
@@ -45,7 +45,7 @@ const allRecipes = useSelector((state) => state?.recipes);
 
         dispatch(getRecipes());
     }, [dispatch])
-    
+
 
 
     return (
@@ -73,12 +73,12 @@ const allRecipes = useSelector((state) => state?.recipes);
 
             </div>
             <CardsContainer currentRecipes={currentRecipes} />
-            {/* <Paginado
+            <Paginado
                 setCurrentPage={setCurrentPage}
                 countriesPerPage={countriesPerPage}
                 allRecipes={allRecipes.length}
 
-            /> */}
+            />
 
         </>
     )
