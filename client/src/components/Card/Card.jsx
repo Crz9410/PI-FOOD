@@ -5,16 +5,11 @@ import Detail from "../Detail/Detail";
 
 const Card = (props) => {
   const [showBack, setShowBack] = useState(false);
-  const [isDetail, setIsDetail] = useState(false);
+  
   const handleCardClick = () => {
     setShowBack(!showBack);
-
   };
-  const handleDetail = () => {
-
-    setIsDetail(!isDetail);
-  };
-
+  
 
 
   return (
