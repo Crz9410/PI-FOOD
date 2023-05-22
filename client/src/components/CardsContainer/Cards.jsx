@@ -2,7 +2,7 @@ import Card from "../Card/Card";
 import Style from "./CardsContainer.module.css"
 // import { useSelector } from "react-redux"
 
-const CardsContainer = ({ currentCountry }) => {
+const CardsContainer = ({ currentRecipes }) => {
 
 
 
@@ -10,21 +10,19 @@ const CardsContainer = ({ currentCountry }) => {
     return (
 
         <div className={Style.container}>
-            {currentCountry.map(country => {
+            {currentRecipes.map(recipe => {
 
                 return (
-                    <div className={Style.card} key={country.cca3}>
+                    <div className={Style.card} key={recipe.cca3}>
                         <Card
 
-                            id={country.id}
-                            nombre={country.name.common || "No hay informacion"}
-                            imagen={country.flags[0] || "No hay informacion"}
-                            continente={country.continents[0] || "No hay informacion"}
-                            capital={country.capital || "No hay informacion"}
-                            subregion={country.subregion || "No hay informacion"}
-                            area={country.area || "No hay informacion"}
-                            poblacion={country.population || "No hay informacion"}
-
+                            id={recipe.id}
+                            name={recipe.title || "No hay informacion"}
+                            image={recipe.image || "No hay informacion"}
+                            summary={recipe.summary || "No hay informacion"}
+                            healthy={recipe.healthScore || "No hay informacion"}
+                            steps={recipe.analyzedInstructions[0].steps[0].step || "No hay informacion"}
+                            
                         />
                         
                     </div>

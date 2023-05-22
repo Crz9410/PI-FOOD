@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { getNameCountry } from "../../redux/actions";
+import { getNameRecipe } from "../../redux/actions";
 import styles from './SearchBar.module.css';
 
 
@@ -15,7 +15,7 @@ const SearchBar = () => {
 
   function handlerSubmit(e) {
     e.preventDefault();
-    dispatch(getNameCountry(name));
+    dispatch(getNameRecipe(name));
   }
   return (
     <div className= {styles.search_container}>

@@ -1,7 +1,7 @@
 import CardsContainer from "../../components/CardsContainer/Cards";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { filterCountriesByStatus, getCountries, filterCreated, orderByName, FILTER_BY_STATUS } from "../../redux/actions";
+import { filterCountriesByStatus, getRecipes, filterCreated, orderByName, FILTER_BY_STATUS } from "../../redux/actions";
 import Paginado from "../../components/Paginado/Paginado";
 import styles from './Home.module.css';
 import SearchBar from "../../components/SearchBar/SearchBar";
@@ -9,14 +9,17 @@ import SearchBar from "../../components/SearchBar/SearchBar";
 
 const Home = () => {
 
+
     const dispatch = useDispatch();
-    const allCountries = useSelector((state) => state.countries);
+const allRecipes = useSelector((state) => state?.recipes);
     const [orden, setOrden] = useState('');
     const [currentPage, setCurrentPage] = useState(1);  //guarda en estado local la pagina actual, set es una constante que setea la pagina actual, empieza en 1 por que siempre se va setear en la pagina principal.
     const [countriesPerPage, setCountriesPerPage] = useState(10) // en el estado local guardarme cuantos paises quiero por pagina.
     const indexOfLastCountries = currentPage * countriesPerPage
     const indexOfFirstCountries = indexOfLastCountries - countriesPerPage
-    const currentcountries = allCountries.slice(indexOfFirstCountries, indexOfLastCountries);
+     const currentRecipes = allRecipes;
+    //  const currentcountries = allRecipes.slice(indexOfFirstCountries, indexOfLastCountries);
+    
 
     const handlerSort = (e) => {
         e.preventDefault()
@@ -37,11 +40,12 @@ const Home = () => {
     const handlerFilterCreated = (e) => {
         dispatch(filterCreated(e.target.value))
     }
+
     useEffect(() => {
 
-        dispatch(getCountries());
+        dispatch(getRecipes());
     }, [dispatch])
-
+    
 
 
     return (
@@ -68,13 +72,13 @@ const Home = () => {
                 <h1>Paises</h1>
 
             </div>
-            <CardsContainer currentCountry={currentcountries} />
-            <Paginado
+            <CardsContainer currentRecipes={currentRecipes} />
+            {/* <Paginado
                 setCurrentPage={setCurrentPage}
                 countriesPerPage={countriesPerPage}
-                allCountries={allCountries.length}
+                allRecipes={allRecipes.length}
 
-            />
+            /> */}
 
         </>
     )

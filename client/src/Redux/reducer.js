@@ -1,41 +1,44 @@
-import { GET_COUNTRIES, GET_COUNTRY, FILTER_BY_STATUS, ORDER_BY_NAME, GET_NAME_COUNTRY } from "./actions";
+import { GET_RECIPES, FILTER_BY_STATUS, ORDER_BY_NAME, GET_NAME_RECIPE, FILTER_CREATED
+ } from "./actions";
 
 const initialState = {
-    countries: [],
-    allCountries: []
+    recipes: [],
+    allRecipes: []
 };
-
 function rootReducer(state = initialState, action) {
+    console.log("HHHHHHHHHHHH", action.type)
     switch (action.type) {
-        case GET_COUNTRIES:
+        case GET_RECIPES:
             return {
                 ...state,
-                countries: action.payload,
-                allCountries: action.payload
-            }
-            case GET_NAME_COUNTRY:
+                recipes: action.payload,
+                allRecipes: action.payload
+              };
+            
+        
+            case GET_NAME_RECIPE:
               return {
                 ...state,
-                countries: action.payload
+                recipes: action.payload
             }
         case FILTER_BY_STATUS:
-            const allCountries = state.allCountries
-            const statusFiltered = action.payload === 'All' ? allCountries : allCountries.filter(el => el.continents[0] === action.payload)
+            const allRecipes = state.allRecipes
+            const statusFiltered = action.payload === 'All' ? allRecipes : allRecipes.filter(el => el.continents[0] === action.payload)
             return {
                 ...state,
-                countries: statusFiltered
+                recipes: statusFiltered
 
             }
-        case 'FILTER_CREATED':
-            const allCountrie = state.allCountries;
+        case FILTER_CREATED:
+            const allCountrie = state.allRecipes;
             const cretedFilter = action.payload === 'created' ? allCountrie.filter(el => el.created) : allCountrie.filter(el => !el.creted)
             return {
                 ...state,
-                countries: action.payload === 'All' ? state.allCountries : cretedFilter
+                recipes: action.payload === 'All' ? state.allRecipes : cretedFilter
             }
         case ORDER_BY_NAME:
             let sortedArr = action.payload === 'asc' ?
-                state.countries.sort(function (a, b) {
+                state.recipes.sort(function (a, b) {
 
                     if (a.name.common > b.name.common) {
                         return 1;
@@ -45,7 +48,7 @@ function rootReducer(state = initialState, action) {
                     }
                     return 0;
                 }) :
-                state.countries.sort(function (a, b) {
+                state.recipes.sort(function (a, b) {
                     if (a.name.common > b.name.common) {
                         return -1;
                     }
@@ -56,11 +59,13 @@ function rootReducer(state = initialState, action) {
                 })
             return {
                 ...state,
-                countries: sortedArr
+                recipes: sortedArr
             }
         default:
+            console.log("DDDDDDDDDDDDDD")
             return state;
     }
 }
+
 
 export default rootReducer;

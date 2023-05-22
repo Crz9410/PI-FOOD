@@ -7,20 +7,22 @@ const Card = (props) => {
   const handleCardClick = () => {
     setShowBack(!showBack);
   };
-
+  console.log("XXXXXXXXXXXXXXXX", props)
+  
   return (
     <div className={styles.cardBox} onClick={handleCardClick}>
       <div className={`${styles.card} ${showBack ? styles.showBack : ""}`}>
         <div className={`${styles.front} ${showBack ? styles.hide : ""}`}>
-          <p className={styles.country}>{props.nombre}</p>
-          <img src={props.imagen} alt="Not found" />
-          <p>Continente: {props.continente}</p>
+          <p>Id: {props.id}</p>
+          <p className={styles.country}>{props.name}</p>
+          <img src={props.image} alt="Not found" />
+          <p>Summary: {props.summary}</p>
+          <p>Healthy: {props.healthy}</p>
         </div>
         <div className={`${styles.back} ${showBack ? "" : styles.hide}`}>
-          <p>Capital: {props.capital}</p>
-          <p>Subregion: {props.subregion}</p>
-          <p>Area: {props.area}</p>
-          <p>Poblacion: {props.poblacion}</p>
+          <p>Steps: {props.steps}</p>
+
+
         </div>
       </div>
     </div>

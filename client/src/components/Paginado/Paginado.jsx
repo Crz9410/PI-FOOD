@@ -1,10 +1,10 @@
 import React from 'react'
 import styles from './Paginado.module.css';
 
-export default function Paginado({countriesPerPage, allCountries, setCurrentPage}){//paginado
+export default function Paginado({countriesPerPage, allRecipes, setCurrentPage}){//paginado
     
     const pageNumbers = [];
-    for(let i=0; i<=Math.ceil(allCountries/countriesPerPage);i++){
+    for(let i=0; i<=Math.ceil(allRecipes/countriesPerPage);i++){
     pageNumbers.push(i+1)}
     const paginado = (pageNumbers) =>{
         setCurrentPage(pageNumbers)

@@ -1,16 +1,17 @@
 import axios from "axios";
-export const GET_COUNTRIES = "GET_COUNTRIES";
+export const GET_RECIPES = "GET_RECIPES";
 export const GET_COUNTRY = "GET_COUNTRY";
 export const FILTER_BY_STATUS = "FILTER_BY_STATUS";
 export const FILTER_CREATED = "FILTER_CREATED";
 export const ORDER_BY_NAME = "ORDER_BY_NAME";
-export const GET_NAME_COUNTRY = "GET_NAME_COUNTRY";
+export const GET_NAME_RECIPE = "GET_NAME_RECIPE";
+const apiKey = process.env.REACT_APP_API_KEY;
 
-export const getCountries = () => async (dispatch) => {
+export const getRecipes = () => async (dispatch) => {
     try {
-        const apiData = await axios.get('https://restcountries.com/v3/all');
-        const countries = apiData.data;
-        dispatch({ type: GET_COUNTRIES, payload: countries });
+        const apiData = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&addRecipeInformation=true#`);
+        const recipes = apiData.data.results;
+        dispatch({ type: "GET_RECIPES", payload: recipes});
     } catch (error) {
         console.error(error);
     }
@@ -30,12 +31,12 @@ export function orderByName(payload) {
     }
 }
 
-export function getNameCountry(nameCountry){ 
+export function getNameRecipe(name){ 
     return async function (dispatch) {
         try {
-            var json = await axios.get(`https://restcountries.com/v3.1/name/${nameCountry}` ); //`https://restcountries.com/v3.1/name/${name}`
+            const json = await axios.get(`https://api.spoonacular.com/food/search?query=${name}&apiKey=${apiKey}` ); //`https://restcountries.com/v3.1/name/${name}`
             return dispatch({
-                type: "GET_NAME_COUNTRY",
+                type: "GET_NAME_RECIPE",
                 payload: json.data
             })
         } catch (error) {
@@ -51,7 +52,7 @@ export function getNameCountry(nameCountry){
     }
     export function filterCreated(payload) {
         return {
-            tyoe: 'FILTER_CREATED',
+            type: 'FILTER_CREATED',
             payload
         }
     }

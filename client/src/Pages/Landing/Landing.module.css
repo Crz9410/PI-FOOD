@@ -4,7 +4,7 @@
     align-items: center;
     justify-content: center;
     height: 100vh;
-    /* background-image: url("../Landing/countries.png"); */
+    background-image: url("../Landing/cooking.png");
     background-size: cover;
 }
 .landing_container a{
