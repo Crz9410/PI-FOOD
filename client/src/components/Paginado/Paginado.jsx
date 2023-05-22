@@ -4,8 +4,8 @@ import styles from './Paginado.module.css';
 export default function Paginado({countriesPerPage, allRecipes, setCurrentPage}){//paginado
     
     const pageNumbers = [];
-    for(let i=0; i<=Math.ceil(allRecipes/countriesPerPage);i++){
-    pageNumbers.push(i+1)}
+    for(let i=1; i<=Math.ceil(allRecipes/countriesPerPage);i++){
+    pageNumbers.push(i)}
     const paginado = (pageNumbers) =>{
         setCurrentPage(pageNumbers)
     }

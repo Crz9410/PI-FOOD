@@ -7,9 +7,10 @@ export const ORDER_BY_NAME = "ORDER_BY_NAME";
 export const GET_NAME_RECIPE = "GET_NAME_RECIPE";
 const apiKey = process.env.REACT_APP_API_KEY;
 
-export const getRecipes = () => async (dispatch) => {
+export const getRecipes = (offset) => async (dispatch) => {
     try {
-        const apiData = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&addRecipeInformation=true#`);
+       const number = 100;
+        const apiData = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&addRecipeInformation=true&offset=${offset}&number=${number}`);
         const recipes = apiData.data.results;
         dispatch({ type: "GET_RECIPES", payload: recipes});
     } catch (error) {

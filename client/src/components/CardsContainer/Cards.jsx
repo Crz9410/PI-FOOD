@@ -21,7 +21,7 @@ const CardsContainer = ({ currentRecipes }) => {
                             image={recipe.image || "No hay informacion"}
                             summary={recipe.summary || "No hay informacion"}
                             healthy={recipe.healthScore || "No hay informacion"}
-                            steps={recipe.analyzedInstructions[0].steps || "No hay informacion"}
+                            steps={recipe?.analyzedInstructions[0]?.steps || "No hay informacion"}
                             
                         />
                         

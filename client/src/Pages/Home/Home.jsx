@@ -14,12 +14,12 @@ const Home = () => {
     const allRecipes = useSelector((state) => state?.recipes);
     const [orden, setOrden] = useState('');
     const [currentPage, setCurrentPage] = useState(1);  //guarda en estado local la pagina actual, set es una constante que setea la pagina actual, empieza en 1 por que siempre se va setear en la pagina principal.
-    const [countriesPerPage, setCountriesPerPage] = useState(10) // en el estado local guardarme cuantos paises quiero por pagina.
+    const [countriesPerPage, setCountriesPerPage] = useState(9) // en el estado local guardarme cuantos paises quiero por pagina.
     const indexOfLastCountries = currentPage * countriesPerPage
     const indexOfFirstCountries = indexOfLastCountries - countriesPerPage
     //const currentRecipes = allRecipes;
     const currentRecipes = allRecipes.slice(indexOfFirstCountries, indexOfLastCountries);
-    console.log("FFFFfFFFFF", currentRecipes )
+    console.log("FFFFfFFFFF", indexOfLastCountries )
 
     const handlerSort = (e) => {
         e.preventDefault()
@@ -43,7 +43,7 @@ const Home = () => {
 
     useEffect(() => {
 
-        dispatch(getRecipes());
+        dispatch(getRecipes(indexOfLastCountries));
     }, [dispatch])
 
 
