@@ -6,8 +6,8 @@ const NavBar = () => {
     return (
         <div className={style.mainContainer}>
             <Link to="/">Página principal</Link>
-            <Link to="/home">Paises</Link>
-            <Link to="/create">Actividades</Link>
+            <Link to="/home">Recetas</Link>
+            <Link to="/create">Crear recetas</Link>
 
         </div>
     )

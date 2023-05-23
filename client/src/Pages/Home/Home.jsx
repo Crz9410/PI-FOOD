@@ -89,7 +89,7 @@ const Home = () => {
                 </select>
             </div>
             <div className={styles.title}>
-                <h1>Paises</h1>
+                <h1>Recetas</h1>
 
             </div>
             <CardsContainer currentRecipes={currentRecipes} />
