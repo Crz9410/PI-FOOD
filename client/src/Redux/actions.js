@@ -47,7 +47,7 @@ export function getNameRecipe(name){
         }
     }
 }
-    export function filterCountriesByStatus(payload) {
+    export function filterDiets(payload) {
         return {
             type: 'FILTER_BY_STATUS',
             payload

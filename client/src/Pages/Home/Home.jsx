@@ -1,7 +1,7 @@
 import CardsContainer from "../../components/CardsContainer/Cards";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { filterCountriesByStatus, getRecipes, filterCreated, orderByName, FILTER_BY_STATUS } from "../../redux/actions";
+import { filterDiets, getRecipes, filterCreated, orderByName, FILTER_BY_STATUS } from "../../redux/actions";
 import Paginado from "../../components/Paginado/Paginado";
 import styles from './Home.module.css';
 import SearchBar from "../../components/SearchBar/SearchBar";
@@ -30,9 +30,9 @@ console.log("NNNNNNNNNNNNN",allRecipes);
     }
 
 
-    const handlerFilterContinet = (e) => {
+    const handlerFilter = (e) => {
         e.preventDefault();
-        dispatch(filterCountriesByStatus(e.target.value))
+        dispatch(filterDiets(e.target.value))
     };
 
     const handlerFilterCreated = (e) => {
@@ -49,14 +49,19 @@ console.log("NNNNNNNNNNNNN",allRecipes);
     return (
         <>
             <div className={styles.filter} >
-                <select className={styles.continent} onChange={e => handlerFilterContinet(e)}>
-                    <option value="South America">Sur America</option>
-                    <option value="Antarctica">Antartida</option>
-                    <option value="Europe">Europa</option>
-                    <option value="Oceania">Oceania</option>
-                    <option value="Africa">Africa</option>
-                    <option value="Asia">Asia</option>
-                    <option value="All">Todos</option>
+                <select className={styles.continent} onChange={e => handlerFilter(e)}>
+                    <option value="All">Tipo de dieta</option>
+                    <option value="gluten free">Gluten free</option>
+                    <option value="dairy free">Dairy free</option>
+                    <option value="vegetarian">Vegetarian</option>
+                    <option value="vegan">Vegan</option>
+                    <option value="veryHealthy">Very Healthy</option>
+                    <option value="pescatarian">Pescatarian</option>
+                    <option value="lacto ovo vegetarian">Lacto ovo vegetarian</option>
+                    <option value="paleolithic">Paleolithic</option>
+                    <option value="primal">Primal</option>
+                    <option value="whole 30">Whole 30</option>
+                    
                 </select>
 
                 <SearchBar />
