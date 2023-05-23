@@ -6,18 +6,22 @@ export const FILTER_CREATED = "FILTER_CREATED";
 export const ORDER_BY_NAME = "ORDER_BY_NAME";
 export const GET_NAME_RECIPE = "GET_NAME_RECIPE";
 export const ORDER_BY_HEALTH = "ORDER_BY_HEALTH";
+export const FILTER_BY_ORIGIN = "FILTER_BY_ORIGIN";
 const apiKey = process.env.REACT_APP_API_KEY;
 
 export const getRecipes = (offset) => async (dispatch) => {
     try {
-       const number = 100;
-        const apiData = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&addRecipeInformation=true&offset=${offset}&number=${number}`);
-        const recipes = apiData.data.results;
-        dispatch({ type: "GET_RECIPES", payload: recipes});
+      const number = 100;
+      const apiData = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&addRecipeInformation=true&offset=${offset}&number=${number}`);
+      const recipes = apiData.data.results.map((recipe) => ({
+        ...recipe,
+        source: "api",
+      }));
+      dispatch({ type: GET_RECIPES, payload: recipes });
     } catch (error) {
-        console.error(error);
+      console.error(error);
     }
-}
+  };
 export const getCountry = (id) => {
     return async function (dispatch) {
         const apiData = await axios.get(`https://restcountries.com/v3.1/alpha/${id}`);
@@ -61,6 +65,14 @@ export function getNameRecipe(name){
             payload
         }
     }
+
+    export function filterByStatus(payload) {
+        return {
+          type: "FILTER_BY_ORIGIN",
+          payload,
+        };
+      }
+
     export function filterCreated(payload) {
         return {
             type: 'FILTER_CREATED',

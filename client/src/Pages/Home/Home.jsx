@@ -1,7 +1,7 @@
 import CardsContainer from "../../components/CardsContainer/Cards";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { filterDiets, getRecipes, filterCreated, orderByName, orderByHealth } from "../../redux/actions";
+import { filterDiets, getRecipes, orderByName, orderByHealth, filterByStatus } from "../../redux/actions";
 import Paginado from "../../components/Paginado/Paginado";
 import styles from './Home.module.css';
 import SearchBar from "../../components/SearchBar/SearchBar";
@@ -45,10 +45,11 @@ const Home = () => {
         e.preventDefault();
         dispatch(filterDiets(e.target.value))
     };
-
-    const handlerFilterCreated = (e) => {
-        dispatch(filterCreated(e.target.value))
-    }
+    
+    const handlerFilterOrigin = (e) => {
+        e.preventDefault();
+        dispatch(filterByStatus(e.target.value))
+    };
 
     useEffect(() => {
 
@@ -72,6 +73,12 @@ const Home = () => {
                     <option value="paleolithic">Paleolithic</option>
                     <option value="primal">Primal</option>
                     <option value="whole 30">Whole 30</option>
+
+                </select>
+
+                <select className={styles.continent} onChange={e => handlerFilterOrigin(e)}>
+                    <option value='api'>Api</option>
+                    <option value='bdd'>BDD</option>
 
                 </select>
 
