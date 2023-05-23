@@ -44,13 +44,13 @@ const searchRecipeByName = async (name) => {
 
 };
 
-const getAllRecipes = async () => {
+const getAllRecipes = async (offset) => {
     // buscar en la bdd
     const databaseRecipes = await Recipe.findAll();
 
     // buscar en la api
     const apiRecipesRaw = (
-        await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true#`)
+        await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true&offset=${offset}`)
     ).data.results;
     const apiRecipes = cleanArray(apiRecipesRaw);
 

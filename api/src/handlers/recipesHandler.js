@@ -17,10 +17,11 @@ const getRecipeHandler = async (req, res) => {
 const getRecipesHandler = async (req, res) => {
 
     try {
-        const { name } = req.query;
+        const { name, offset  } = req.query;
+        console.log("AAAAAAAAAAAAAAAA", offset )
         // Obtener el nombre del país de los parámetros de la URL 
         // Hacer una petición GET al endpoint con el nombre del país
-        const response = name ? await searchRecipeByName(name) : await getAllRecipes();
+        const response = name ? await searchRecipeByName(name) : await getAllRecipes(offset);
 
         // Devolver la respuesta en formato JSON
         res.json(response);
