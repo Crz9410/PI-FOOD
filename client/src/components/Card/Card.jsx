@@ -22,6 +22,9 @@ const Card = (props) => {
           <Link to={{
             pathname: "/detail",
             state: {
+              id: props.id,
+              name: props.name,
+              image: props.image,
               healthy: props.healthy,
               summary: props.summary,
               steps: props.steps
