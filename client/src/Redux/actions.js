@@ -5,6 +5,7 @@ export const FILTER_BY_STATUS = "FILTER_BY_STATUS";
 export const FILTER_CREATED = "FILTER_CREATED";
 export const ORDER_BY_NAME = "ORDER_BY_NAME";
 export const GET_NAME_RECIPE = "GET_NAME_RECIPE";
+export const ORDER_BY_HEALTH = "ORDER_BY_HEALTH";
 const apiKey = process.env.REACT_APP_API_KEY;
 
 export const getRecipes = (offset) => async (dispatch) => {
@@ -28,6 +29,13 @@ export const getCountry = (id) => {
 export function orderByName(payload) {
     return {
         type: 'ORDER_BY_NAME',
+        payload
+    }
+}
+
+export function orderByHealth(payload) {
+    return {
+        type: 'ORDER_BY_HEALTH',
         payload
     }
 }

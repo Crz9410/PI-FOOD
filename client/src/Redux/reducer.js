@@ -1,5 +1,5 @@
 import {
-    GET_RECIPES, FILTER_BY_STATUS, ORDER_BY_NAME, GET_NAME_RECIPE, FILTER_CREATED
+    GET_RECIPES, FILTER_BY_STATUS, ORDER_BY_NAME, GET_NAME_RECIPE, FILTER_CREATED, ORDER_BY_HEALTH
 } from "./actions";
 
 const initialState = {
@@ -65,6 +65,32 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 recipes: sortedArr
             }
+
+            case ORDER_BY_HEALTH:
+                console.log("MMMMMMMMMMMMMM", state.recipes)
+                let sorteArrHealth = action.payload === 'mas' ?
+                    state.recipes.sort(function (a, b) {
+                        if (a.healthScore > b.healthScore) {
+                            return 1;
+                        }
+                        if (b.healthScore > a.healthScore) {
+                            return -1;
+                        }
+                        return 0;
+                    }) :
+                    state.recipes.sort(function (a, b) {
+                        if (a.healthScore > b.healthScore) {
+                            return -1;
+                        }
+                        if (b.healthScore > a.healthScore) {
+                            return 1;
+                        }
+                        return 0;
+                    })
+                return {
+                    ...state,
+                    recipes: sorteArrHealth
+                }
         default:
 
             return state;

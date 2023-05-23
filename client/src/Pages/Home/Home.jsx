@@ -1,7 +1,7 @@
 import CardsContainer from "../../components/CardsContainer/Cards";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { filterDiets, getRecipes, filterCreated, orderByName, FILTER_BY_STATUS } from "../../redux/actions";
+import { filterDiets, getRecipes, filterCreated, orderByName, orderByHealth } from "../../redux/actions";
 import Paginado from "../../components/Paginado/Paginado";
 import styles from './Home.module.css';
 import SearchBar from "../../components/SearchBar/SearchBar";
@@ -24,6 +24,16 @@ const Home = () => {
         e.preventDefault()
         // dispatch(filterCreated(e.target.value))
         dispatch(orderByName(e.target.value))
+        setCurrentPage(1);
+        setOrden(`Ordenado ${e.target.value}`)
+
+
+    }
+    
+    const handlerSorthealth = (e) => {
+        e.preventDefault()
+        // dispatch(filterCreated(e.target.value))
+        dispatch(orderByHealth(e.target.value))
         setCurrentPage(1);
         setOrden(`Ordenado ${e.target.value}`)
 
@@ -69,6 +79,12 @@ const Home = () => {
                 <select className={styles.continent} onChange={e => handlerSort(e)}>
                     <option value='asc'>A-Z</option>
                     <option value='des'>Z-A</option>
+
+                </select>
+
+                <select className={styles.continent} onChange={e => handlerSorthealth(e)}>
+                    <option value='mas'>Más saludable</option>
+                    <option value='menos'>Menos saludable</option>
 
                 </select>
             </div>
