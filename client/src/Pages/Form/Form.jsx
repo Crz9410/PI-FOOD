@@ -2,21 +2,23 @@ import { useState } from "react"
 import axios from "axios"
 import styles from './Form.module.css';
 const Form = () => {
-
+const [message, setMessage ] = useState("");
     const [form, setform] = useState({
+        id: "",
         name: "",
-        dificultad: "",
-        duracion: "",
-        temporada: "",
-        body: ""
+        image: "",
+        summary: "",
+        healthy: "",
+        steps: "",
     })
 
     const [errors, setErrors] = useState({
+        id: "",
         name: "",
-        dificultad: "",
-        duracion: "",
-        temporada: "",
-        body: ""
+        image: "",
+        summary: "",
+        healthy: "",
+        steps: "",
     })
 
     const changeHandler = (event) => {
@@ -29,44 +31,67 @@ const Form = () => {
     }
 
     const submitHandler = (event) => {
-        event.preventDefault()
-        axios.post("http://localhost:3001/activities", form)
-            .then(res => {
-                console.log(res, "h")
-            })
-            .catch(err => {
-                console.log(err, "ño")
-            })
-    };
+        event.preventDefault();
+      
+        if (
+          form.id.trim() === "" ||
+          form.name.trim() === "" ||
+          form.image.trim() === "" ||
+          form.summary.trim() === "" ||
+          form.healthy.trim() === "" ||
+          form.steps.trim() === ""
+        ) {
+          setMessage("Por favor, complete todos los campos");
+          return; 
+        }
+      
+        axios
+          .post("http://localhost:3001/recipe", form)
+          .then((res) => {
+            if (res.status === 200 || res.status === 201) {
+              setMessage("La receta fue creada exitosamente");
+            } else {
+              setMessage("Verifique los datos ingresados");
+            }
+          })
+          .catch((err) => {
+            setMessage("Verifique los datos ingresados");
+          });
+      };
 
     return (
         <> <div className={styles.title_activities}>
-            <h1>Actividades</h1>
+            <h1>Recetas</h1>
 
         </div>
 
-            <form  className={styles.form} onSubmit={submitHandler}>
+            <form className={styles.form} onSubmit={submitHandler}>
                 <div>
-                    <label>Nombre de la actividad</label>
+                    <label>Id de la receta</label>
+                    <input type="text" value={form.id} onChange={changeHandler} name="id" />
+                </div>
+                <div>
+                    <label>Nombre de la receta</label>
                     <input type="text" value={form.name} onChange={changeHandler} name="name" />
                 </div>
                 <div>
-                    <label>Dificultad</label>
-                    <input type="text" value={form.dificultad} onChange={changeHandler} name="dificultad" />
+                    <label>Imagen de la receta</label>
+                    <input type="text" value={form.image} onChange={changeHandler} name="image" />
                 </div>
                 <div>
-                    <label>Duracion</label>
-                    <input type="text" value={form.duracion} onChange={changeHandler} name="duracion" />
+                    <label>Summary</label>
+                    <input type="text" value={form.summary} onChange={changeHandler} name="summary" />
                 </div>
                 <div>
-                    <label>Temporada</label>
-                    <input type="text" value={form.temporada} onChange={changeHandler} name="temporada" />
+                    <label>Healthy</label>
+                    <input type="text" value={form.healthy} onChange={changeHandler} name="healthy" />
                 </div>
                 <div>
-                    <label>Descripcion</label>
-                    <input type="text" value={form.body} onChange={changeHandler} name="body" />
+                    <label>Steps</label>
+                    <input type="text" value={form.steps} onChange={changeHandler} name="steps" />
                 </div>
-                <button type="submit">Crear actividad</button>
+                {message}
+                <button type="submit">Crear receta</button>
             </form>
         </>
     )
