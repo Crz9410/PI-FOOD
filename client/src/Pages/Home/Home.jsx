@@ -17,10 +17,8 @@ const Home = () => {
     const [countriesPerPage, setCountriesPerPage] = useState(9) // en el estado local guardarme cuantos paises quiero por pagina.
     const indexOfLastCountries = currentPage * countriesPerPage
     const indexOfFirstCountries = indexOfLastCountries - countriesPerPage
-    //const currentRecipes = allRecipes;
-    const currentRecipes = allRecipes.slice(indexOfFirstCountries, indexOfLastCountries);
-    console.log("FFFFfFFFFF", indexOfLastCountries )
-
+    const currentRecipes = allRecipes?.slice(indexOfFirstCountries, indexOfLastCountries);
+console.log("NNNNNNNNNNNNN",allRecipes);
     const handlerSort = (e) => {
         e.preventDefault()
         // dispatch(filterCreated(e.target.value))
@@ -43,7 +41,7 @@ const Home = () => {
 
     useEffect(() => {
 
-        dispatch(getRecipes(indexOfLastCountries));
+        dispatch(getRecipes(currentPage));
     }, [dispatch])
 
 
@@ -76,7 +74,7 @@ const Home = () => {
             <Paginado
                 setCurrentPage={setCurrentPage}
                 countriesPerPage={countriesPerPage}
-                allRecipes={allRecipes.length}
+                allRecipes={allRecipes?.length}
 
             />
 

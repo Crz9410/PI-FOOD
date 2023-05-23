@@ -19,7 +19,8 @@ function rootReducer(state = initialState, action) {
             case GET_NAME_RECIPE:
               return {
                 ...state,
-                recipes: action.payload
+                recipes: action.payload,
+                allRecipes: action.payload
             }
         case FILTER_BY_STATUS:
             const allRecipes = state.allRecipes

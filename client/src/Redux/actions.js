@@ -35,10 +35,12 @@ export function orderByName(payload) {
 export function getNameRecipe(name){ 
     return async function (dispatch) {
         try {
-            const json = await axios.get(`https://api.spoonacular.com/food/search?query=${name}&apiKey=${apiKey}` ); //`https://restcountries.com/v3.1/name/${name}`
+            const json = await axios.get(`https://api.spoonacular.com/food/search?query=${name}&apiKey=${apiKey}` );
+          const results = json.data?.searchResults;
+            console.log("YYYYYYYYYYYYYYYY", results);
             return dispatch({
                 type: "GET_NAME_RECIPE",
-                payload: json.data
+                payload: results
             })
         } catch (error) {
             console.log(error);

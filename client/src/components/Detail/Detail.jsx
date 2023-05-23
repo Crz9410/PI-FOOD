@@ -1,6 +1,6 @@
 const Detail = (props) => {
     const { healthy, summary, steps } = props.location.state;
-    console.log("ÑÑÑÑÑÑÑÑÑÑÑÑ", steps);
+    
     return (
       <>
         <div>
