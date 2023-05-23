@@ -18,7 +18,8 @@ const Home = () => {
     const indexOfLastCountries = currentPage * countriesPerPage
     const indexOfFirstCountries = indexOfLastCountries - countriesPerPage
     const currentRecipes = allRecipes?.slice(indexOfFirstCountries, indexOfLastCountries);
-console.log("NNNNNNNNNNNNN",allRecipes);
+    console.log("NNNNNNNNNNNNN", allRecipes);
+    
     const handlerSort = (e) => {
         e.preventDefault()
         // dispatch(filterCreated(e.target.value))
@@ -61,7 +62,7 @@ console.log("NNNNNNNNNNNNN",allRecipes);
                     <option value="paleolithic">Paleolithic</option>
                     <option value="primal">Primal</option>
                     <option value="whole 30">Whole 30</option>
-                    
+
                 </select>
 
                 <SearchBar />

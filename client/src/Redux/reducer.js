@@ -41,22 +41,22 @@ function rootReducer(state = initialState, action) {
                 recipes: action.payload === 'All' ? state.allRecipes : cretedFilter
             }
         case ORDER_BY_NAME:
+            console.log("MMMMMMMMMMMMMM", state.recipes)
             let sortedArr = action.payload === 'asc' ?
                 state.recipes.sort(function (a, b) {
-
-                    if (a.name.common > b.name.common) {
+                    if (a.title > b.title) {
                         return 1;
                     }
-                    if (b.name.common > a.name.common) {
+                    if (b.title > a.title) {
                         return -1;
                     }
                     return 0;
                 }) :
                 state.recipes.sort(function (a, b) {
-                    if (a.name.common > b.name.common) {
+                    if (a.title > b.title) {
                         return -1;
                     }
-                    if (b.name.common > a.name.common) {
+                    if (b.title > a.title) {
                         return 1;
                     }
                     return 0;
