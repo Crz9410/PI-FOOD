@@ -42,14 +42,15 @@ function rootReducer(state = initialState, action) {
             }
         case FILTER_BY_ORIGIN:
             const allOrigin = state.allRecipes;
-            const filteredByStatus = action.payload !== "api" ? allOrigin.filter((el) => el.source !== action.payload ) : allOrigin.filter((el) => el.source === action.payload);
+            console.log("MMMMMMMMMMMMMM", allOrigin)
+            const filteredByStatus = action.payload === "bdd" ? allOrigin.filter((el) => el.source2 === "bdd" && !el.source /*console.log("WWWWWW", el)*/ ) : allOrigin.filter((el) => el.source === action.payload);
             return {
                 ...state,
                 recipes: filteredByStatus,
             };
 
         case ORDER_BY_NAME:
-            console.log("MMMMMMMMMMMMMM", state.recipes)
+           
             let sortedArr = action.payload === 'asc' ?
                 state.recipes.sort(function (a, b) {
                     if (a.title > b.title) {

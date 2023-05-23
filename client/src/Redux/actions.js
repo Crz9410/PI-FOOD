@@ -11,17 +11,32 @@ const apiKey = process.env.REACT_APP_API_KEY;
 
 export const getRecipes = (offset) => async (dispatch) => {
     try {
-      const number = 100;
-      const apiData = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&addRecipeInformation=true&offset=${offset}&number=${number}`);
-      const recipes = apiData.data.results.map((recipe) => ({
+      const number = 15;
+  
+      // Obtener recetas de la API
+      const apiResponse = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&addRecipeInformation=true&offset=${offset}&number=${number}`);
+      const apiRecipes = apiResponse.data.results.map((recipe) => ({
         ...recipe,
         source: "api",
       }));
+  
+      // Obtener recetas de la base de datos
+      const localResponse = await axios.get(`http://localhost:3001/recipe?offset=${offset}`);
+      const localRecipes = localResponse.data.map((recipe) => ({
+        ...recipe,
+        source2: "bdd",
+      }));;
+  
+      // Combinar recetas de la API y la base de datos
+      const recipes = [...apiRecipes, ...localRecipes];
+  
       dispatch({ type: GET_RECIPES, payload: recipes });
+     
     } catch (error) {
       console.error(error);
     }
   };
+
 export const getCountry = (id) => {
     return async function (dispatch) {
         const apiData = await axios.get(`https://restcountries.com/v3.1/alpha/${id}`);
@@ -44,12 +59,12 @@ export function orderByHealth(payload) {
     }
 }
 
-export function getNameRecipe(name){ 
+export function getNameRecipe(name) {
     return async function (dispatch) {
         try {
-            const json = await axios.get(`https://api.spoonacular.com/food/search?query=${name}&apiKey=${apiKey}` );
-          const results = json.data?.searchResults;
-            console.log("YYYYYYYYYYYYYYYY", results);
+            const json = await axios.get(`https://api.spoonacular.com/food/search?query=${name}&apiKey=${apiKey}`);
+            const results = json.data?.searchResults;
+            
             return dispatch({
                 type: "GET_NAME_RECIPE",
                 payload: results
@@ -59,23 +74,23 @@ export function getNameRecipe(name){
         }
     }
 }
-    export function filterDiets(payload) {
-        return {
-            type: 'FILTER_BY_STATUS',
-            payload
-        }
+export function filterDiets(payload) {
+    return {
+        type: 'FILTER_BY_STATUS',
+        payload
     }
+}
 
-    export function filterByStatus(payload) {
-        return {
-          type: "FILTER_BY_ORIGIN",
-          payload,
-        };
-      }
+export function filterByStatus(payload) {
+    return {
+        type: "FILTER_BY_ORIGIN",
+        payload,
+    };
+}
 
-    export function filterCreated(payload) {
-        return {
-            type: 'FILTER_CREATED',
-            payload
-        }
+export function filterCreated(payload) {
+    return {
+        type: 'FILTER_CREATED',
+        payload
     }
+}
