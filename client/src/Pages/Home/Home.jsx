@@ -65,9 +65,7 @@ const Home = () => {
                     <option value="All">Tipo de dieta</option>
                     <option value="gluten free">Gluten free</option>
                     <option value="dairy free">Dairy free</option>
-                    <option value="vegetarian">Vegetarian</option>
                     <option value="vegan">Vegan</option>
-                    <option value="veryHealthy">Very Healthy</option>
                     <option value="pescatarian">Pescatarian</option>
                     <option value="lacto ovo vegetarian">Lacto ovo vegetarian</option>
                     <option value="paleolithic">Paleolithic</option>

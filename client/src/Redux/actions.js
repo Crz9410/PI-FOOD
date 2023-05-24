@@ -12,11 +12,17 @@ const apiKey = process.env.REACT_APP_API_KEY;
 export const getRecipes = (offset) => async (dispatch) => {
     try {
       const number = 100;
+      const localResponse = await axios.get(`http://localhost:3001/recipe?offset=${offset}`);
+      const localRecipes = localResponse.data.map((recipe) => ({
+        ...recipe,
+        source: "bdd",
+      }));;
       const apiData = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&addRecipeInformation=true&offset=${offset}&number=${number}`);
-      const recipes = apiData.data.results.map((recipe) => ({
+      const apiRecipes = apiData.data.results.map((recipe) => ({
         ...recipe,
         source: "api",
       }));
+      const recipes = [...apiRecipes, ...localRecipes];
       dispatch({ type: GET_RECIPES, payload: recipes });
     } catch (error) {
       console.error(error);

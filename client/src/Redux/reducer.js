@@ -26,9 +26,9 @@ function rootReducer(state = initialState, action) {
         case FILTER_BY_STATUS:
             const allRecipes = state.allRecipes;
             const dietsFiltered =
-                action.payload === 'All'
+                action.payload === 'All' 
                     ? allRecipes
-                    : allRecipes.filter((el) => el.diets.includes(action.payload));
+                    : allRecipes.filter((el) => el.source === "api"? el.diets.includes(action.payload): allRecipes );
             return {
                 ...state,
                 recipes: dietsFiltered
