@@ -60,7 +60,9 @@ const getAllRecipes = async (offset) => {
 
 
     // unificar 
-    return [...databaseRecipes, ...apiRecipes];
+    let results= [...databaseRecipes, ...apiRecipes];
+    console.log("HHHHHHH", results)
+    return results;
 };
 
 const createRecipe = async (id, name, image, summary, healthy, steps) => {
