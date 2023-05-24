@@ -6,6 +6,7 @@ import Detail from "../Detail/Detail";
 const Card = (props) => {
   const [showBack, setShowBack] = useState(false);
   
+  
   const handleCardClick = () => {
     setShowBack(!showBack);
   };
@@ -20,16 +21,18 @@ const Card = (props) => {
         <div className={`${styles.front}`}>
           <p className={styles.country}>{props.name}</p>
           <img src={props.image} alt="Not found" onError={handleImageError} />
+          <p>{props.diets}</p>
 
           <Link to={{
             pathname: "/detail",
             state: {
-              id: props?.id,
-              name: props?.name,
-              image: props?.image,
-              healthy: props?.healthy,
-              summary: props?.summary,
-              steps: props?.steps
+              id: props.id,
+              name: props.name,
+              image: props.image,
+              diets: props.diets,
+              healthy: props.healthy,
+              summary: props.summary,
+              steps: props.steps
             }
           }}>
             <button>Ingresar</button>

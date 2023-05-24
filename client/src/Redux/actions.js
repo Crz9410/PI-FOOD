@@ -19,7 +19,7 @@ export const getRecipes = (offset) => async (dispatch) => {
           ...recipe,
           source: "api",
         }));
-  
+        
         
         const localResponse = await axios.get(`http://localhost:3001/recipe?offset=${offset}`);
         const localRecipes = localResponse.data.map((recipe) => ({

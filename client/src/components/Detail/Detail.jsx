@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import styles from "./Detail.module.css";
 
 const Detail = (props) => {
-  const { id, name, image, healthy, summary, steps } = props.location.state;
-  console.log("FFFFFFFF", steps)
+  const { id, name, image, diets, healthy, summary, steps } = props.location.state;
   
+
   const handleImageError = (e) => {
     e.target.src = "https://spoonacular.com/recipeImages/715497-312x231.jpg"; // Imagen por defecto
   };
@@ -18,6 +18,9 @@ const Detail = (props) => {
         <p>
           <strong>Nombre:</strong> {name}
         </p>
+        <p>
+          <strong>Diets:</strong> {diets}
+        </p>
         <img src={image} alt="Not found" onError={handleImageError} className={styles.image} />
 
         <p>
@@ -27,7 +30,7 @@ const Detail = (props) => {
           <strong>Summary:</strong>{" "}
           <div dangerouslySetInnerHTML={{ __html: summary }}></div>
         </p>
-      
+
         <div className={styles.stepsContainer}>
           {
             typeof steps?.[0] !== "object" ? (
