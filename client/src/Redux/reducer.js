@@ -28,7 +28,7 @@ function rootReducer(state = initialState, action) {
             const dietsFiltered =
                 action.payload === 'All' 
                     ? allRecipes
-                    : allRecipes.filter((el) => el.source === "api"? el.diets.includes(action.payload): allRecipes );
+                    : allRecipes.filter((el, i) => el.source === "api" && !allRecipes[i].source2 ? el.diets.includes(action.payload): allRecipes );
             return {
                 ...state,
                 recipes: dietsFiltered
@@ -42,14 +42,15 @@ function rootReducer(state = initialState, action) {
             }
         case FILTER_BY_ORIGIN:
             const allOrigin = state.allRecipes;
-            const filteredByStatus = action.payload !== "api" ? allOrigin.filter((el) => el.source !== action.payload ) : allOrigin.filter((el) => el.source === action.payload);
+            
+            const filteredByStatus = action.payload === "bdd" ? allOrigin.filter((el) => el.source2 === "bdd" && !el.source ) : allOrigin.filter((el) => el.source === action.payload);
             return {
                 ...state,
                 recipes: filteredByStatus,
             };
 
         case ORDER_BY_NAME:
-            console.log("MMMMMMMMMMMMMM", state.recipes)
+            
             let sortedArr = action.payload === 'asc' ?
                 state.recipes.sort(function (a, b) {
                     if (a.title > b.title) {
@@ -75,7 +76,7 @@ function rootReducer(state = initialState, action) {
             }
 
         case ORDER_BY_HEALTH:
-            console.log("MMMMMMMMMMMMMM", state.recipes)
+            
             let sorteArrHealth = action.payload === 'mas' ?
                 state.recipes.sort(function (a, b) {
                     if (a.healthScore > b.healthScore) {

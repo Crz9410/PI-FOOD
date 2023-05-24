@@ -51,8 +51,12 @@ const getAllRecipes = async (offset) => {
     // buscar en la api
     const apiRecipesRaw = (
         await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true&offset=${offset}`)
-    ).data.results;
-    const apiRecipes = cleanArray(apiRecipesRaw);
+    ).data.results
+      console.log("UUUUUUUU", databaseRecipes)
+      const apiRecipes = cleanArray(apiRecipesRaw).map((recipe) => ({
+        ...recipe,
+        source: "api",
+      }));
 
 
     // unificar 

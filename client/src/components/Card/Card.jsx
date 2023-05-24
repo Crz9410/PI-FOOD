@@ -11,13 +11,15 @@ const Card = (props) => {
   };
   
 
-
+  const handleImageError = (e) => {
+    e.target.src = "https://spoonacular.com/recipeImages/715497-312x231.jpg"; // Imagen por defecto
+  };
   return (
     <div className={styles.cardBox} onClick={handleCardClick}>
       <div className={`${styles.card}`}>
         <div className={`${styles.front}`}>
           <p className={styles.country}>{props.name}</p>
-          <img src={props.image} alt="Not found" />
+          <img src={props.image} alt="Not found" onError={handleImageError} />
 
           <Link to={{
             pathname: "/detail",

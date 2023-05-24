@@ -22,11 +22,11 @@ const CardsContainer = ({ currentRecipes }) => {
           ) : (
             <Card
               id={recipe.id}
-              name={recipe.title || "No hay información"}
+              name={recipe.title ||recipe.name || "No hay información"}
               image={recipe.image || "No hay información"}
               summary={recipe.summary || "No hay información"}
               healthy={recipe.healthScore || "No hay información"}
-              steps={recipe?.analyzedInstructions?.[0]?.steps || "No hay información"}
+              steps={recipe?.analyzedInstructions?.[0]?.steps || recipe.steps ||"No hay información"}
             />
           )}
         </div>
