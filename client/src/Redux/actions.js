@@ -60,19 +60,38 @@ export function orderByHealth(payload) {
 
 export function getNameRecipe(name) {
     return async function (dispatch) {
-        try {
-            const json = await axios.get(`https://api.spoonacular.com/food/search?query=${name}&apiKey=${apiKey}`);
-            const results = json.data?.searchResults;
-            
-            return dispatch({
-                type: "GET_NAME_RECIPE",
-                payload: results
-            })
-        } catch (error) {
-            console.log(error);
-        }
-    }
-}
+      try {
+        // Búsqueda de recetas
+        const searchResponse = await axios.get(
+          `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&query=${name}`
+        );
+        const searchResults = searchResponse.data.results;
+  
+        // Obtener la información completa de todas las recetas encontradas en la búsqueda
+        const recipeIds = searchResults.map((recipe) => recipe.id);
+        const allRecipesResponse = await axios.get(
+          `https://api.spoonacular.com/recipes/informationBulk?apiKey=${apiKey}&ids=${recipeIds.join(",")}`
+        );
+        const allRecipes = allRecipesResponse.data;
+  
+        // Agregar la información completa de todas las recetas a los resultados de la búsqueda
+        const resultsWithDetails = searchResults.map((recipe) => {
+          const fullRecipe = allRecipes.find((r) => r.id === recipe.id);
+          return {
+            ...recipe,
+            steps: fullRecipe?.analyzedInstructions?.[0]?.steps || [],
+          };
+        });
+  
+        return dispatch({
+          type: "GET_NAME_RECIPE",
+          payload: resultsWithDetails,
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  }
 export function filterDiets(payload) {
     return {
         type: 'FILTER_BY_STATUS',

@@ -18,7 +18,7 @@ const getRecipesHandler = async (req, res) => {
 
     try {
         const { name, offset  } = req.query;
-        console.log("AAAAAAAAAAAAAAAA", offset )
+        
         // Obtener el nombre del país de los parámetros de la URL 
         // Hacer una petición GET al endpoint con el nombre del país
         const response = name ? await searchRecipeByName(name) : await getAllRecipes(offset);
