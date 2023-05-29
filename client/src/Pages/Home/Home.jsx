@@ -1,7 +1,7 @@
 import CardsContainer from "../../components/CardsContainer/Cards";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { filterDiets, getRecipes, orderByName, orderByHealth, filterByStatus } from "../../redux/actions";
+import { filterDiets, getRecipes, orderByName, orderByHealth, filterByStatus } from "../../Redux/actions";
 import Paginado from "../../components/Paginado/Paginado";
 import styles from './Home.module.css';
 import SearchBar from "../../components/SearchBar/SearchBar";
