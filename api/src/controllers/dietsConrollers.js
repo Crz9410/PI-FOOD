@@ -15,10 +15,10 @@ const getAllDiets = async () => {
     ).data.results[0].diets;
 
     const createDietPromises = apiDietsRaw.map(async (e, i) => {
-        const id = i;
+        const idDiets = i;
         const name = e;
   
-        await Diets.create({ id, name });
+        await Diets.create({ idDiets, name });
     });
   
     await Promise.all(createDietPromises);

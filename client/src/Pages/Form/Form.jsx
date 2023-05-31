@@ -50,7 +50,7 @@ const Form = () => {
   const borrarHandler = (dieta) => {
     const newDiet = form.diets.filter((d) => d !== dieta)
     setForm({ ...form, diets: newDiet })
-    console.log("LLLLLLLLL", form.diets);
+    
   };
 
 

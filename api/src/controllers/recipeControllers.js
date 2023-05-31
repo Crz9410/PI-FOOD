@@ -79,7 +79,7 @@ const createRecipe = async (id, name, image, idDiets, summary, healthy, steps) =
     //     }}})
     //     newRecipe.addDiet(dbDiets)
     //  }
-    console.log("PPPPPPPPPPPP", newRecipe);
+   
     return newRecipe;
     };
 }
