@@ -11,6 +11,7 @@ const Form = () => {
     summary: "",
     healthy: "",
     steps: "",
+    diets: [],
   });
 
   const [errors, setErrors] = useState({
@@ -22,11 +23,82 @@ const Form = () => {
     steps: "",
   });
 
-  const changeHandler = (event) => {
-    const property = event.target.name;
-    const value = event.target.value;
+  // const changeHandler = (event) => {
+  //   const property = event.target.name;
+  //   const value = event.target.value;
 
-    setForm({ ...form, [property]: value });
+  //   setForm({ ...form, [property]: value });
+  // };
+  const handleChange = (event) => {
+    // const selectedDiets = Array.from(event.target.selectedOptions, (option) => option.value);
+    // setForm({ ...form, diets: selectedDiets });
+    const propiedad = event.target.name
+    const value = event.target.value
+    if (propiedad === "diets") {
+      if (form.diets.includes(value) || value === "") {
+        if (form.diets.includes(value)) {
+          alert(`La dieta ${value} ya fue seleccionada`)
+        }
+      } else {
+        setForm({ ...form, diets: [...form.diets, value] })
+      }
+    } else {
+      setForm({ ...form, [propiedad]: value })
+    }
+  };
+
+  const borrarHandler = (dieta) => {
+    const newDiet = form.diets.filter((d) => d !== dieta)
+    setForm({ ...form, diets: newDiet })
+    console.log("LLLLLLLLL", form.diets);
+  };
+
+
+  const validate = () => {
+    const newErrors = {
+      id: "",
+      name: "",
+      image: "",
+      summary: "",
+      healthy: "",
+      steps: "",
+    };
+
+    if (form.name.trim() === "") {
+      newErrors.name = "Nombre vacío";
+    } else if (form.name.length > 80) {
+      newErrors.name = "El nombre debe ser MENOR o igual a 80 caracteres";
+    } else if (form.name.length < 2) {
+      newErrors.name = "El nombre debe ser MAYOR o igual a 2 caracteres";
+    } else if (!/^[a-zA-ZñÑ]+(([',. -][a-zA-ZñÑ ])?[a-zA-ZñÑ]*)*$/.test(form.name)) {
+      newErrors.name = "El nombre tiene algún carácter no permitido";
+    }
+
+    if (form.healthy !== "" && (isNaN(form.healthy) || form.healthy < 1 || form.healthy > 100)) {
+      newErrors.healthy = "El Healthy debe ser un número entre 1 y 100";
+    } else if (form.healthy.trim() === "") {
+      newErrors.healthy = "Healthy vacío";
+    }
+
+    if (form.summary.trim() === "") {
+      newErrors.summary = "Summary vacío";
+    } else if (form.summary.length < 3) {
+      newErrors.summary = "El Summary debe ser Mayor o igual a 3 caracteres";
+    } else if (form.summary.length > 6) {
+      newErrors.summary = "El Summary debe ser MENOR o igual a 6 caracteres";
+    }
+
+    if (form.steps.trim() === "") {
+      newErrors.steps = "Steps vacío";
+    } else if (form.steps.length > 6) {
+      newErrors.steps = "El Steps debe ser MENOR o igual a 6 caracteres";
+    } else if (form.steps.length < 3) {
+      newErrors.steps = "El Steps debe ser Mayor o igual a 3 caracteres";
+    }
+
+    setErrors(newErrors);
+
+    return Object.values(newErrors).every((error) => error === ""); // Devuelve true si no hay errores
   };
 
   const resetForm = () => {
@@ -37,21 +109,15 @@ const Form = () => {
       summary: "",
       healthy: "",
       steps: "",
+      diets: [],
     });
   };
 
   const submitHandler = (event) => {
     event.preventDefault();
 
-    if (
-      form.id.trim() === "" ||
-      form.name.trim() === "" ||
-      form.image.trim() === "" ||
-      form.summary.trim() === "" ||
-      form.healthy.trim() === "" ||
-      form.steps.trim() === ""
-    ) {
-      setMessage("Por favor, complete todos los campos");
+    if (!validate()) {
+      setMessage("Por favor, complete o corrija correctamente todos los campos");
       return;
     }
 
@@ -60,7 +126,7 @@ const Form = () => {
       .then((res) => {
         if (res.status === 200 || res.status === 201) {
           setMessage("La receta fue creada exitosamente");
-          resetForm(); // Reiniciar el formulario después de una creación exitosa
+          resetForm();
         } else {
           setMessage("Verifique los datos ingresados");
         }
@@ -78,34 +144,61 @@ const Form = () => {
 
       <form className={styles.form} onSubmit={submitHandler}>
         <div>
-          <label>Id de la receta</label>
-          <input type="text" value={form.id} onChange={changeHandler} name="id" />
+          <label>T</label>
+          <input type="text" value={form.id} onChange={handleChange} name="id" />
+        </div><div>
+          <label>Tipos de dieta:</label>
+          <select name="diets" onChange={handleChange} value={form.diets} multiple>
+            <option value="">
+              -- Seleccionar dieta/es --
+            </option>
+            <option name="gluten free" value="gluten free">Gluten free</option>
+            <option name="dairy free" value="dairy free">Dairy free</option>
+            <option name="vegan" value="vegan">Vegan</option>
+            <option name="pescatarian" value="pescatarian">Pescatarian</option>
+            <option name="lacto ovo vegetarian" value="lacto ovo vegetarian">Lacto ovo vegetarian</option>
+            <option name="paleolithic" value="paleolithic">Paleolithic</option>
+            <option name="primal" value="primal">Primal</option>
+            <option name="whole 30" value="whole 30">Whole 30</option>
+          </select>
+        </div>
+        <div>
+          {form.diets.map((diet) => (
+            <div key={diet} className="selected-diets" value="diet">
+              {diet} <button onClick={() => borrarHandler(diet)} name={diet}>x</button>
+            </div>
+          ))}
         </div>
         <div>
           <label>Nombre de la receta</label>
-          <input type="text" value={form.name} onChange={changeHandler} name="name" />
+          <input type="text" value={form.name} onChange={handleChange} name="name" />
+          {errors.name && <span>{errors.name}</span>}
         </div>
         <div>
           <label>Imagen de la receta</label>
-          <input type="text" value={form.image} onChange={changeHandler} name="image" />
+          <input type="text" value={form.image} onChange={handleChange} name="image" />
         </div>
         <div>
           <label>Summary</label>
-          <input type="text" value={form.summary} onChange={changeHandler} name="summary" />
+          <input type="text" value={form.summary} onChange={handleChange} name="summary" />
+          {errors.summary && <span>{errors.summary}</span>}
         </div>
         <div>
           <label>Healthy</label>
-          <input type="text" value={form.healthy} onChange={changeHandler} name="healthy" />
+          <input type="text" value={form.healthy} onChange={handleChange} name="healthy" />
+          {errors.healthy && <span>{errors.healthy}</span>}
         </div>
         <div>
           <label>Steps</label>
-          <input type="text" value={form.steps} onChange={changeHandler} name="steps" />
+          <input type="text" value={form.steps} onChange={handleChange} name="steps" />
+          {errors.steps && <span>{errors.steps}</span>}
         </div>
-        {message}
+        {message && <span>{message}</span>}
         <button type="submit">Crear receta</button>
       </form>
     </>
   );
 };
 
-export default Form
+export default Form;
+

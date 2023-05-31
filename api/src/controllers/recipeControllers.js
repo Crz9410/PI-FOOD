@@ -48,7 +48,7 @@ const searchRecipeByName = async (name) => {
 
 const getAllRecipes = async (offset) => {
     // buscar en la bdd
-    const databaseRecipes = await Recipe.findAll();
+    const databaseRecipes = await Recipe.findAll({include:Diets});
 
     // buscar en la api
     const apiRecipesRaw = (
@@ -67,10 +67,19 @@ const getAllRecipes = async (offset) => {
     return results;
 };
 
-const createRecipe = async (id, name, image, summary, healthy, steps) => {
-    if (id && name && image && summary && healthy && steps) {
+const createRecipe = async (id, name, image, diets, summary, healthy, steps) => {
+    if (id && name && image && diets && summary && healthy && steps) {
 
-     await Recipe.create({ id, name, image, summary, healthy, steps});
+     const newRecipe = await Recipe.create({ id, name, image, diets, summary, healthy, steps});
+    //  for(let i=0; i < diets.length; i++){
+    //     const dbDiets = await Diets.findAll({ where: { name : {
+    //         [Op.iLike]: `%${diets[i]}%`
+            
+    //     }}})
+    //     console.log("PPPPPPPPPPPP", dbDiets);
+    //     newRecipe.addDiet(dbDiets)
+    //  }
+    return newRecipe;
     };
 }
 
