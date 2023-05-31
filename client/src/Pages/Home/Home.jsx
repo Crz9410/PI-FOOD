@@ -18,7 +18,7 @@ const Home = () => {
     const indexOfLastCountries = currentPage * countriesPerPage
     const indexOfFirstCountries = indexOfLastCountries - countriesPerPage
     const currentRecipes = allRecipes?.slice(indexOfFirstCountries, indexOfLastCountries);
-    console.log("NNNNNNNNNNNNN", allRecipes);
+    // console.log("NNNNNNNNNNNNN", allRecipes);
     
     const handlerSort = (e) => {
         e.preventDefault()

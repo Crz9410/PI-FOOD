@@ -1,4 +1,5 @@
 const { DataTypes } = require('sequelize');
+
 // const { toDefaultValue } = require('sequelize/types/utils');
 // Exportamos una funcion que define el modelo
 // Luego le injectamos la conexion a sequelize.
@@ -21,7 +22,7 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     // diets:{
-    //   type: DataTypes.ARRAY(DataTypestypes.STRING),
+    //   type: DataTypes.ARRAY(DataTypes.STRING),
     //   allowNull: false,
     // },
     // resumen del plato 

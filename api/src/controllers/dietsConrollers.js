@@ -26,5 +26,15 @@ const getAllDiets = async () => {
     // unificar 
     return [...databaseDiets, ...apiDietsRaw];
 };
+const createDiets = async (idDiets, name) => {
+    if (idDiets && name ) {
 
-module.exports = { getAllDiets };
+        
+     const newDiet = await Diets.create({ idDiets, name});
+    
+    console.log("PPPPPPPPPPPP", newDiet);
+    return newDiet;
+    };
+}
+
+module.exports = { getAllDiets, createDiets };

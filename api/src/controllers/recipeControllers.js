@@ -70,15 +70,16 @@ const getAllRecipes = async (offset) => {
 const createRecipe = async (id, name, image, diets, summary, healthy, steps) => {
     if (id && name && image && diets && summary && healthy && steps) {
 
+        
      const newRecipe = await Recipe.create({ id, name, image, diets, summary, healthy, steps});
     //  for(let i=0; i < diets.length; i++){
     //     const dbDiets = await Diets.findAll({ where: { name : {
     //         [Op.iLike]: `%${diets[i]}%`
             
     //     }}})
-    //     console.log("PPPPPPPPPPPP", dbDiets);
     //     newRecipe.addDiet(dbDiets)
     //  }
+    console.log("PPPPPPPPPPPP", diets);
     return newRecipe;
     };
 }
