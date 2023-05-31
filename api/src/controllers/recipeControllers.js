@@ -67,11 +67,11 @@ const getAllRecipes = async (offset) => {
     return results;
 };
 
-const createRecipe = async (id, name, image, idDiets, summary, healthy, steps) => {
-    if (id && name && image && idDiets && summary && healthy && steps) {
+const createRecipe = async (id, name, image, diets,  summary, healthy, steps) => {
+    if (id && name && image && diets && summary && healthy && steps) {
 
         
-     const newRecipe = await Recipe.create({ id, name, image, idDiets, summary, healthy, steps});
+     const newRecipe = await Recipe.create({ id, name, image, diets, summary, healthy, steps});
     //  for(let i=0; i < diets.length; i++){
     //     const dbDiets = await Diets.findAll({ where: { name : {
     //         [Op.iLike]: `%${diets[i]}%`

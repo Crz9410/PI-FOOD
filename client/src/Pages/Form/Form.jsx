@@ -30,7 +30,7 @@ const Form = () => {
 
     dispatch(getDiets());
   }, [dispatch])
-  console.log("HHHHHHHHHHHHHHH", allRecipes);
+  console.log("HHHHHHHHHHHHHHH", form.diets);
 
   // const changeHandler = (event) => {
   //   const property = event.target.name;
@@ -129,7 +129,7 @@ const Form = () => {
       setMessage("Por favor, complete o corrija correctamente todos los campos");
       return;
     }
-
+    console.log("GGGGGGGGGGGGGGGG", form);
     axios
       .post("http://localhost:3001/recipe", form)
       .then((res) => {

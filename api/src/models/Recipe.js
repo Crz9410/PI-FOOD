@@ -21,10 +21,10 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    // diets:{
-    //   type: DataTypes.ARRAY(DataTypes.STRING),
-    //   allowNull: false,
-    // },
+    diets:{
+      type: DataTypes.ARRAY(DataTypes.STRING),
+      allowNull: false,
+    },
     // resumen del plato 
     summary: {
       type: DataTypes.STRING,
