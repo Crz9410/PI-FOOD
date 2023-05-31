@@ -9,7 +9,7 @@ const Form = () => {
   const allRecipes = useSelector((state) => state?.recipes);
   const [message, setMessage] = useState("");
   const [form, setForm] = useState({
-    id: "",
+    
     name: "",
     image: "",
     summary: "",
@@ -19,7 +19,7 @@ const Form = () => {
   });
 
   const [errors, setErrors] = useState({
-    id: "",
+   
     name: "",
     image: "",
     summary: "",
@@ -30,7 +30,7 @@ const Form = () => {
 
     dispatch(getDiets());
   }, [dispatch])
-  console.log("HHHHHHHHHHHHHHH", form.diets);
+  
 
   // const changeHandler = (event) => {
   //   const property = event.target.name;
@@ -44,12 +44,12 @@ const Form = () => {
     const propiedad = event.target.name
     const value = event.target.value
     if (propiedad === "diets") {
-      if (form.diets.includes(value) || value === "") {
-        if (form.diets.includes(value)) {
+      if (form?.diets.includes(value) || value === "") {
+        if (form?.diets.includes(value)) {
           alert(`La dieta ${value} ya fue seleccionada`)
         }
       } else {
-        setForm({ ...form, diets: [...form.diets, value] })
+        setForm({ ...form, diets: [...form?.diets, value] })
       }
     } else {
       setForm({ ...form, [propiedad]: value })
@@ -57,7 +57,7 @@ const Form = () => {
   };
 
   const borrarHandler = (dieta) => {
-    const newDiet = form.diets.filter((d) => d !== dieta)
+    const newDiet = form?.diets.filter((d) => d !== dieta)
     setForm({ ...form, diets: newDiet })
 
   };
@@ -65,7 +65,7 @@ const Form = () => {
 
   const validate = () => {
     const newErrors = {
-      id: "",
+      
       name: "",
       image: "",
       summary: "",
@@ -112,7 +112,7 @@ const Form = () => {
 
   const resetForm = () => {
     setForm({
-      id: "",
+      
       name: "",
       image: "",
       summary: "",
@@ -152,16 +152,13 @@ const Form = () => {
       </div>
 
       <form className={styles.form} onSubmit={submitHandler}>
-        <div>
-          <label>T</label>
-          <input type="text" value={form.id} onChange={handleChange} name="id" />
-        </div>
+       
         <div>
           <label>Tipos de dieta:</label>
-          <select name="diets" onChange={handleChange} value={form.diets} multiple>
+          <select name="diets" onChange={handleChange} value={form?.diets} multiple>
             <option value="">-- Seleccionar dieta/es --</option>
             {allRecipes &&
-              allRecipes.map((diet) => (
+              allRecipes?.map((diet) => (
                 <option key={diet} value={diet}>
                   {diet}
                 </option>
@@ -169,8 +166,8 @@ const Form = () => {
           </select>
         </div>
         <div>
-          {console.log("TTTTTTTTTTTTT", form.diets)}
-          {form.diets.map((diet) => (
+         
+          {form?.diets.map((diet) => (
             <div key={diet} className="selected-diets" value="diet">
               {diet}{" "}
               <button onClick={() => borrarHandler(diet)} name={diet}>

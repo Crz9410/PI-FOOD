@@ -34,10 +34,10 @@ const getRecipesHandler = async (req, res) => {
 };
 
 const createRecipeHandler = async (req, res) => {
-    const { id, name, image, diets, summary, healthy, steps } = req.body
+    const {  name, image, diets, summary, healthy, steps } = req.body
    
     try {
-        const newRecipe = await createRecipe(id, name, image, diets, summary, healthy, steps);
+        const newRecipe = await createRecipe( name, image, diets, summary, healthy, steps);
         res.status(200).json(newRecipe)
        
     } catch (error) {
