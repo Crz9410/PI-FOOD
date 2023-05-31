@@ -10,7 +10,7 @@ const Form = () => {
   const allDiets = useSelector((state) => state.allDiet);
   const [message, setMessage] = useState("");
   const [form, setForm] = useState({
-    
+
     name: "",
     image: "",
     summary: "",
@@ -20,18 +20,18 @@ const Form = () => {
   });
 
   const [errors, setErrors] = useState({
-   
+
     name: "",
     image: "",
     summary: "",
     healthy: "",
     steps: "",
   });
-   useEffect(() => {
+  useEffect(() => {
 
     dispatch(getDiets());
   }, [dispatch])
-  
+
 
   // const changeHandler = (event) => {
   //   const property = event.target.name;
@@ -66,22 +66,35 @@ const Form = () => {
 
   const validate = () => {
     const newErrors = {
-      
+
       name: "",
       image: "",
       summary: "",
       healthy: "",
       steps: "",
     };
+    if (form.diets.length === 0) {
+      newErrors.diets = "Debe seleccionar al menos una opción de dieta";
+    }
 
     if (form.name.trim() === "") {
       newErrors.name = "Nombre vacío";
     } else if (form.name.length > 50) {
       newErrors.name = "El nombre debe ser MENOR o igual a 50 caracteres";
-    } else if (form.name.length < 2) {
-      newErrors.name = "El nombre debe ser MAYOR o igual a 2 caracteres";
+    } else if (form.name.length < 10) {
+      newErrors.name = "El nombre debe ser MAYOR o igual a 10 caracteres";
     } else if (!/^[a-zA-ZñÑ]+(([',. -][a-zA-ZñÑ ])?[a-zA-ZñÑ]*)*$/.test(form.name)) {
       newErrors.name = "El nombre tiene algún carácter no permitido";
+    }
+    if (form.image.trim() === "") {
+      newErrors.image = "Image vacío";
+    }
+    if (form.image.trim() !== "") {
+      try {
+        new URL(form.image);
+      } catch (error) {
+        newErrors.image = "El valor ingresado no es una URL válida";
+      }
     }
 
     if (form.healthy !== "" && (isNaN(form.healthy) || form.healthy < 1 || form.healthy > 100)) {
@@ -92,8 +105,8 @@ const Form = () => {
 
     if (form.summary.trim() === "") {
       newErrors.summary = "Summary vacío";
-    } else if (form.summary.length < 3) {
-      newErrors.summary = "El Summary debe ser Mayor o igual a 3 caracteres";
+    } else if (form.summary.length < 10) {
+      newErrors.summary = "El Summary debe ser Mayor o igual a 10 caracteres";
     } else if (form.summary.length > 300) {
       newErrors.summary = "El Summary debe ser MENOR o igual a 300 caracteres";
     }
@@ -113,7 +126,7 @@ const Form = () => {
 
   const resetForm = () => {
     setForm({
-      
+
       name: "",
       image: "",
       summary: "",
@@ -130,7 +143,7 @@ const Form = () => {
       setMessage("Por favor, complete o corrija correctamente todos los campos");
       return;
     }
-    
+
     axios
       .post("http://localhost:3001/recipe", form)
       .then((res) => {
@@ -153,22 +166,22 @@ const Form = () => {
       </div>
 
       <form className={styles.form} onSubmit={submitHandler}>
-       
+
         <div>
           <label>Tipos de dieta:</label>
           <select name="diets" onChange={handleChange} value={form?.diets} multiple>
-            <option value="">-- Seleccionar dieta/es --</option>
-           
-             { allDiets?.map((diet, i) => (
-                <option name ={diet} key={i} value={diet}>
-               
-                  {diet}
-                </option>
-              ))}
+            <option value="">-- Seleccionar dieta --</option>
+            {allDiets?.map((diet, i) => (
+              <option name={diet} key={i} value={diet}>
+                {diet}
+              </option>
+            ))}
           </select>
+          {errors.diets && <span>{errors.diets}</span>}
         </div>
+
         <div>
-         
+
           {form?.diets.map((diet, i) => (
             <div key={diet || i} className="selected-diets" value="diet">
               {diet}{" "}
@@ -177,16 +190,18 @@ const Form = () => {
               </button>
             </div>
           ))}
-        </div>  
+        </div>
         <div>
           <label>Nombre de la receta</label>
           <input type="text" value={form.name} onChange={handleChange} name="name" />
           {errors.name && <span>{errors.name}</span>}
         </div>
         <div>
-          <label>Imagen de la receta</label>
-          <input type="text" value={form.image} onChange={handleChange} name="image" />
-        </div>
+  <label>Imagen de la receta</label>
+  <input type="text" value={form.image} onChange={handleChange} name="image" />
+  {errors.image && <span>{errors.image}</span>}
+</div>
+
         <div>
           <label>Summary</label>
           <input type="text" value={form.summary} onChange={handleChange} name="summary" />
