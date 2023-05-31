@@ -1,8 +1,12 @@
-import { useState } from "react";
+
 import axios from "axios";
 import styles from './Form.module.css';
-
+import { getDiets } from "../../Redux/actions";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 const Form = () => {
+  const dispatch = useDispatch();
+  const allRecipes = useSelector((state) => state?.recipes);
   const [message, setMessage] = useState("");
   const [form, setForm] = useState({
     id: "",
@@ -22,6 +26,11 @@ const Form = () => {
     healthy: "",
     steps: "",
   });
+  useEffect(() => {
+
+    dispatch(getDiets());
+  }, [dispatch])
+  console.log("HHHHHHHHHHHHHHH", allRecipes);
 
   // const changeHandler = (event) => {
   //   const property = event.target.name;
@@ -50,7 +59,7 @@ const Form = () => {
   const borrarHandler = (dieta) => {
     const newDiet = form.diets.filter((d) => d !== dieta)
     setForm({ ...form, diets: newDiet })
-    
+
   };
 
 
@@ -146,29 +155,29 @@ const Form = () => {
         <div>
           <label>T</label>
           <input type="text" value={form.id} onChange={handleChange} name="id" />
-        </div><div>
+        </div>
+        <div>
           <label>Tipos de dieta:</label>
           <select name="diets" onChange={handleChange} value={form.diets} multiple>
-            <option value="">
-              -- Seleccionar dieta/es --
-            </option>
-            <option name="gluten free" value="gluten free">Gluten free</option>
-            <option name="dairy free" value="dairy free">Dairy free</option>
-            <option name="vegan" value="vegan">Vegan</option>
-            <option name="pescatarian" value="pescatarian">Pescatarian</option>
-            <option name="lacto ovo vegetarian" value="lacto ovo vegetarian">Lacto ovo vegetarian</option>
-            <option name="paleolithic" value="paleolithic">Paleolithic</option>
-            <option name="primal" value="primal">Primal</option>
-            <option name="whole 30" value="whole 30">Whole 30</option>
+            <option value="">-- Seleccionar dieta/es --</option>
+            {allRecipes &&
+              allRecipes.map((diet) => (
+                <option key={diet} value={diet}>
+                  {diet}
+                </option>
+              ))}
           </select>
         </div>
         <div>
           {form.diets.map((diet) => (
             <div key={diet} className="selected-diets" value="diet">
-              {diet} <button onClick={() => borrarHandler(diet)} name={diet}>x</button>
+              {diet}{" "}
+              <button onClick={() => borrarHandler(diet)} name={diet}>
+                x
+              </button>
             </div>
           ))}
-        </div>
+        </div>  
         <div>
           <label>Nombre de la receta</label>
           <input type="text" value={form.name} onChange={handleChange} name="name" />

@@ -7,6 +7,7 @@ export const ORDER_BY_NAME = "ORDER_BY_NAME";
 export const GET_NAME_RECIPE = "GET_NAME_RECIPE";
 export const ORDER_BY_HEALTH = "ORDER_BY_HEALTH";
 export const FILTER_BY_ORIGIN = "FILTER_BY_ORIGIN";
+export const GET_DIETS = "GET_DIETS";
 const apiKey = process.env.REACT_APP_API_KEY;
 
 export const getRecipes = (offset) => async (dispatch) => {
@@ -112,3 +113,14 @@ export function filterCreated(payload) {
         payload
     }
 }
+export const getDiets = () => async (dispatch) => {
+  try {
+    const apiResponse = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&addRecipeInformation=true#`);
+
+    const response = apiResponse.data.results[0].diets;
+    dispatch({ type: GET_DIETS, payload: response });
+
+  } catch (error) {
+    console.error(error);
+  }
+};

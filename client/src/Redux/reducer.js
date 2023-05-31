@@ -1,5 +1,5 @@
 import {
-    GET_RECIPES, FILTER_BY_STATUS, ORDER_BY_NAME, GET_NAME_RECIPE, FILTER_CREATED, ORDER_BY_HEALTH, FILTER_BY_ORIGIN
+    GET_RECIPES, FILTER_BY_STATUS, ORDER_BY_NAME, GET_NAME_RECIPE, FILTER_CREATED, ORDER_BY_HEALTH, FILTER_BY_ORIGIN, GET_DIETS
 } from "./actions";
 
 const initialState = {
@@ -15,6 +15,13 @@ function rootReducer(state = initialState, action) {
                 recipes: action.payload,
                 allRecipes: action.payload
             };
+            case GET_DIETS:
+                console.log("YYYYYYYYYYYYYYYY", action.payload);
+                return {
+                    ...state,
+                    recipes: action.payload,
+                    allRecipes: action.payload
+                };
 
 
         case GET_NAME_RECIPE:
