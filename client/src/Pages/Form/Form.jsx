@@ -158,8 +158,8 @@ const Form = () => {
           <select name="diets" onChange={handleChange} value={form?.diets} multiple>
             <option value="">-- Seleccionar dieta/es --</option>
             {allRecipes &&
-              allRecipes?.map((diet) => (
-                <option key={diet} value={diet}>
+              allRecipes?.map((diet, i) => (
+                <option key={i} value={diet}>
                   {diet}
                 </option>
               ))}
@@ -167,8 +167,8 @@ const Form = () => {
         </div>
         <div>
          
-          {form?.diets.map((diet) => (
-            <div key={diet} className="selected-diets" value="diet">
+          {form?.diets.map((diet, i) => (
+            <div key={diet || i} className="selected-diets" value="diet">
               {diet}{" "}
               <button onClick={() => borrarHandler(diet)} name={diet}>
                 x

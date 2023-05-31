@@ -6,8 +6,8 @@ const CardsContainer = ({ currentRecipes }) => {
    
   return (
     <div className={Style.container}>
-      {currentRecipes?.map((recipe) => (
-        <div className={Style.card} key={recipe.id}>
+      {currentRecipes?.map((recipe,i) => (
+        <div className={Style.card} key={recipe.id || i}>
           {(
             
             <Card
