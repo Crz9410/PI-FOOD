@@ -16,7 +16,7 @@ function rootReducer(state = initialState, action) {
                 allRecipes: action.payload
             };
             case GET_DIETS:
-                console.log("YYYYYYYYYYYYYYYY", action.payload);
+                
                 return {
                     ...state,
                     recipes: action.payload,

@@ -32,7 +32,7 @@ const createDiets = async (idDiets, name) => {
         
      const newDiet = await Diets.create({ idDiets, name});
     
-    console.log("PPPPPPPPPPPP", newDiet);
+    
     return newDiet;
     };
 }

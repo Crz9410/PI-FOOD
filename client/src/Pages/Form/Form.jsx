@@ -26,7 +26,7 @@ const Form = () => {
     healthy: "",
     steps: "",
   });
-  useEffect(() => {
+   useEffect(() => {
 
     dispatch(getDiets());
   }, [dispatch])
@@ -129,7 +129,7 @@ const Form = () => {
       setMessage("Por favor, complete o corrija correctamente todos los campos");
       return;
     }
-    console.log("GGGGGGGGGGGGGGGG", form);
+    
     axios
       .post("http://localhost:3001/recipe", form)
       .then((res) => {
@@ -169,6 +169,7 @@ const Form = () => {
           </select>
         </div>
         <div>
+          {console.log("TTTTTTTTTTTTT", form.diets)}
           {form.diets.map((diet) => (
             <div key={diet} className="selected-diets" value="diet">
               {diet}{" "}
