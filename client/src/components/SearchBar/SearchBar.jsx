@@ -5,7 +5,7 @@ import { getNameRecipe } from "../../Redux/actions";
 import styles from './SearchBar.module.css';
 
 
-const SearchBar = () => {
+const SearchBar = ({setCurrentPage}) => {
   const dispatch = useDispatch();
   const [name, setname] = useState("");
   
@@ -15,6 +15,7 @@ const SearchBar = () => {
   }
 
   function handlerSubmit(e) {
+    setCurrentPage(1)
     e.preventDefault();
     dispatch(getNameRecipe(name));
   }

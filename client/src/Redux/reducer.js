@@ -4,7 +4,8 @@ import {
 
 const initialState = {
     recipes: [],
-    allRecipes: []
+    allRecipes: [], 
+    allDiet:[]
 };
 function rootReducer(state = initialState, action) {
 
@@ -19,8 +20,8 @@ function rootReducer(state = initialState, action) {
                 
                 return {
                     ...state,
-                    recipes: action.payload,
-                    allRecipes: action.payload
+                    allDiet: action.payload,
+                   
                 };
 
 

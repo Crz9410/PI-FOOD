@@ -27,7 +27,7 @@ module.exports = (sequelize) => {
     },
     // resumen del plato 
     summary: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false,
     },
     // nivel de comida saludable
@@ -37,7 +37,7 @@ module.exports = (sequelize) => {
     },
     // paso a paso
     steps: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false,
     },
   },

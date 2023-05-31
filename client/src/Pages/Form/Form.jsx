@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 const Form = () => {
   const dispatch = useDispatch();
   const allRecipes = useSelector((state) => state?.recipes);
+  const allDiets = useSelector((state) => state.allDiet);
   const [message, setMessage] = useState("");
   const [form, setForm] = useState({
     
@@ -75,8 +76,8 @@ const Form = () => {
 
     if (form.name.trim() === "") {
       newErrors.name = "Nombre vacío";
-    } else if (form.name.length > 80) {
-      newErrors.name = "El nombre debe ser MENOR o igual a 80 caracteres";
+    } else if (form.name.length > 50) {
+      newErrors.name = "El nombre debe ser MENOR o igual a 50 caracteres";
     } else if (form.name.length < 2) {
       newErrors.name = "El nombre debe ser MAYOR o igual a 2 caracteres";
     } else if (!/^[a-zA-ZñÑ]+(([',. -][a-zA-ZñÑ ])?[a-zA-ZñÑ]*)*$/.test(form.name)) {
@@ -93,16 +94,16 @@ const Form = () => {
       newErrors.summary = "Summary vacío";
     } else if (form.summary.length < 3) {
       newErrors.summary = "El Summary debe ser Mayor o igual a 3 caracteres";
-    } else if (form.summary.length > 6) {
-      newErrors.summary = "El Summary debe ser MENOR o igual a 6 caracteres";
+    } else if (form.summary.length > 300) {
+      newErrors.summary = "El Summary debe ser MENOR o igual a 300 caracteres";
     }
 
     if (form.steps.trim() === "") {
       newErrors.steps = "Steps vacío";
-    } else if (form.steps.length > 6) {
-      newErrors.steps = "El Steps debe ser MENOR o igual a 6 caracteres";
-    } else if (form.steps.length < 3) {
-      newErrors.steps = "El Steps debe ser Mayor o igual a 3 caracteres";
+    } else if (form.steps.length > 900) {
+      newErrors.steps = "El Steps debe ser MENOR o igual a 900 caracteres";
+    } else if (form.steps.length < 10) {
+      newErrors.steps = "El Steps debe ser Mayor o igual a 10 caracteres";
     }
 
     setErrors(newErrors);
@@ -157,9 +158,10 @@ const Form = () => {
           <label>Tipos de dieta:</label>
           <select name="diets" onChange={handleChange} value={form?.diets} multiple>
             <option value="">-- Seleccionar dieta/es --</option>
-            {allRecipes &&
-              allRecipes?.map((diet, i) => (
-                <option key={i} value={diet}>
+           
+             { allDiets?.map((diet, i) => (
+                <option name ={diet} key={i} value={diet}>
+               
                   {diet}
                 </option>
               ))}
