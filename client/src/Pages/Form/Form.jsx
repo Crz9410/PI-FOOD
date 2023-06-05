@@ -81,8 +81,8 @@ const Form = () => {
       newErrors.name = "Nombre vacío";
     } else if (form.name.length > 50) {
       newErrors.name = "El nombre debe ser MENOR o igual a 50 caracteres";
-    } else if (form.name.length < 10) {
-      newErrors.name = "El nombre debe ser MAYOR o igual a 10 caracteres";
+    } else if (form.name.length < 4) {
+      newErrors.name = "El nombre debe ser MAYOR o igual a  caracteres";
     } else if (!/^[a-zA-ZñÑ]+(([',. -][a-zA-ZñÑ ])?[a-zA-ZñÑ]*)*$/.test(form.name)) {
       newErrors.name = "El nombre tiene algún carácter no permitido";
     }
